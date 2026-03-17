@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir *.vsct)",
+      "Bash(dotnet build:*)"
+    ]
+  }
+}

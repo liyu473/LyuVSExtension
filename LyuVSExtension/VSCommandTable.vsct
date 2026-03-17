@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+
+  <Commands package="guidLyuVSExtensionPackage">
+    <Groups>
+      <Group guid="guidLyuVSExtensionPackageCmdSet" id="ProjectContextMenuGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <Button guid="guidLyuVSExtensionPackageCmdSet" id="OpenLogsCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidLyuVSExtensionPackageCmdSet" id="ProjectContextMenuGroup" />
+        <Strings>
+          <ButtonText>在 VSCode 中打开日志文件夹</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+  </Commands>
+
+  <Symbols>
+    <GuidSymbol name="guidLyuVSExtensionPackage" value="{87adfe0b-a191-4f8f-ac27-3ce8ba424154}" />
+
+    <GuidSymbol name="guidLyuVSExtensionPackageCmdSet" value="{a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d}">
+      <IDSymbol name="ProjectContextMenuGroup" value="0x1020" />
+      <IDSymbol name="OpenLogsCommandId" value="0x0100" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>
