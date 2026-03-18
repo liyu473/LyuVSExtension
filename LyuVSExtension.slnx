@@ -4,7 +4,7 @@
     <Platform Name="arm64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="LyuVSExtension/LyuVSExtension.csproj">
+  <Project Path="LyuVSExtension/LyuVSExtension.csproj" Id="9d2617be-520b-476a-b005-49786a814daf">
     <Platform Solution="*|arm64" Project="arm64" />
     <Platform Solution="*|x86" Project="x86" />
   </Project>

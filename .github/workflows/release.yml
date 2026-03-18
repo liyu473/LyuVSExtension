@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+
+    - name: Restore NuGet packages
+      run: nuget restore LyuVSExtension.slnx
+
+    - name: Build solution
+      run: msbuild LyuVSExtension.slnx /p:Configuration=Release /p:Platform="Any CPU" /p:DeployExtension=false
+
+    - name: Find VSIX file
+      id: find_vsix
+      shell: pwsh
+      run: |
+        $vsixFile = Get-ChildItem -Path . -Filter *.vsix -Recurse | Select-Object -First 1
+        if ($vsixFile) {
+          echo "vsix_path=$($vsixFile.FullName)" >> $env:GITHUB_OUTPUT
+          echo "vsix_name=$($vsixFile.Name)" >> $env:GITHUB_OUTPUT
+          Write-Host "Found VSIX: $($vsixFile.FullName)"
+        } else {
+          Write-Error "VSIX file not found"
+          exit 1
+        }
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: ${{ steps.find_vsix.outputs.vsix_path }}
+        draft: false
+        prerelease: false
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
